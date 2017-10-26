@@ -7,7 +7,7 @@
 
    <!-- Starts Here ! -->
     <target name="build">
-        <phingcall target="restart_passenger" />
+        <phingcall target="npm_install" />
     </target>
     
    <!-- Any template to execute -->
@@ -30,7 +30,7 @@
 
      <target name="npm_install">
         <echo message="npm install on server in ${jenkins_sources}/site/www folder"/>
-        <exec command="cd ${jenkins_sources}/site/www; npm install" dir="." />
+        <exec command="cd ${jenkins_sources}/site/www; pwd" dir="." />
     </target>
 
    
