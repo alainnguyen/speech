@@ -51,7 +51,7 @@
         destinationdir="${doc_root}"
         itemizechanges="true"
         excludefile="${sync_exclude_file}"
-        verbose="false"
+        verbose="true"
         delete="true" 
         options="-rKzlvh  --stats"
         dryrun="false"
