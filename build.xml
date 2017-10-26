@@ -54,7 +54,6 @@
         verbose="false"
         delete="true" 
         options="-rKzlvh  --stats"
-        identityFile="${priv_key}"
         dryrun="false"
       />
       
