@@ -7,7 +7,7 @@
 
    <!-- Starts Here ! -->
     <target name="build">
-        <phingcall target="deploy" />
+        <phingcall target="restart_passenger" />
     </target>
     
    <!-- Any template to execute -->
@@ -27,7 +27,15 @@
         <copy file="robots.txt" tofile="./site/www/robots.txt" overwrite="true"/>
     </target>
 
-    <target name="deploy" description="Deploys the current working copy to web root using FileSync">
+
+     <target name="npm_install">
+        <echo message="npm install on server in ${jenkins_sources}/site/www folder"/>
+        <exec command="npm install" dir="${jenkins_sources}/site/www" />
+    </target>
+
+   
+
+    <target name="deploy" depends="npm_install" description="Deploys the current working copy to web root using FileSync">
 
       <if>
         <or>
@@ -57,5 +65,10 @@
         dryrun="false"
       />
       
+    </target>
+
+    <target name="restart_passenger" depends="deploy" >
+        <echo message="Restart Passenger Node App"/>
+        <exec command="passenger-config restart-app ${jenkins_sources}/site/www" dir="${jenkins_sources}/site/www" />
     </target>
 </project>
