@@ -8,7 +8,7 @@
 
    <!-- Starts Here ! -->
     <target name="build">
-        <phingcall target="npm_install" />
+        <phingcall target="restart_passenger" />
     </target>
     
    <!-- Any template to execute -->
@@ -61,7 +61,7 @@
         itemizechanges="true"
         verbose="true"
         delete="true" 
-        options="-rKzlvh  --stats"
+        options="-rKzlvh --stats"
         dryrun="false"
       />
       
