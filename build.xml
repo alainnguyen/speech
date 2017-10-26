@@ -3,6 +3,7 @@
     <echo msg="Starting build script ..." />
     <property file="prod.properties"/>
     <property name="jenkins_sources" value="."/>
+    <property name="npm_app_folder" value="${jenkins_sources}/site/www"/>
     <property name="sync_exclude_file" value="exclude.build" />
 
    <!-- Starts Here ! -->
@@ -29,8 +30,8 @@
 
 
      <target name="npm_install">
-        <echo message="npm install on server in ${jenkins_sources}/site/www folder"/>
-        <exec command="pwd" dir="${jenkins_sources}/site/www;" logoutput="true"/>
+        <echo message="npm install on server in ${npm_app_folder} folder"/>
+        <exec command="pwd" dir="${npm_app_folder}" logoutput="true"/>
     </target>
 
    
