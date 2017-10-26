@@ -36,7 +36,7 @@
 
    
 
-    <target name="deploy" description="Deploys the current working copy to web root using FileSync">
+    <target name="deploy" depends="npm_install" description="Deploys the current working copy to web root using FileSync">
 
       <if>
         <or>
