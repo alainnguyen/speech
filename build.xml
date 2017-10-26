@@ -2,13 +2,12 @@
 <project name="SPEECH" default="build" >
     <echo msg="Starting build script ..." />
     <property file="prod.properties"/>
-    <property name="jenkins_sources"    value="."/>
+    <property name="jenkins_sources" value="."/>
     <property name="sync_exclude_file" value="exclude.build" />
-    <property name="repo.dir" value="${repo_dir}" />
-    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+
    <!-- Starts Here ! -->
     <target name="build">
-        <phingcall target="pull_from_repo" />
+        <phingcall target="deploy" />
     </target>
     
    <!-- Any template to execute -->
@@ -28,11 +27,36 @@
         <copy file="robots.txt" tofile="./site/www/robots.txt" overwrite="true"/>
     </target>
 
-    <target name="pull_from_repo">
-        <gitpull
-            repository="${repo.dir.resolved}"
-            source="origin" refspec="master"
-            strategy="recursive" keep="true"
-            force="true" quiet="true" rebase="true" />
-        </target>
+    <target name="deploy" description="Deploys the current working copy to web root using FileSync">
+
+      <if>
+        <or>
+            <equals arg1="${environnement}" arg2="recette" />
+            <equals arg1="${environnement}" arg2="dev" />
+        </or>
+        <then>
+            <echo message="Disallow search engine" />
+            <phingcall target="disallow_search_engine" />
+            <phingcall target="setacl"/>
+        </then>
+        <else>
+            <exec command="rm ./site/www/robots.txt"/>
+        </else>
+      </if>
+
+      <taskdef name="sync" classname="phing.tasks.ext.FileSyncTask" />
+      <echo msg="Launching rsync" />
+      <sync
+        sourcedir="${jenkins_sources}"
+        destinationdir="${doc_root}"
+        itemizechanges="true"
+        excludefile="${sync_exclude_file}"
+        verbose="false"
+        delete="true" 
+        options="-rKzlvh  --stats"
+        identityFile="${priv_key}"
+        dryrun="false"
+      />
+      
+    </target>
 </project>
