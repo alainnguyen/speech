@@ -30,7 +30,7 @@
 
      <target name="npm_install">
         <echo message="npm install on server in ${jenkins_sources}/site/www folder"/>
-        <exec command="cd ${jenkins_sources}/site/www; pwd" dir="." />
+        <exec command="pwd" dir="${jenkins_sources}/site/www;" logoutput="true"/>
     </target>
 
    
