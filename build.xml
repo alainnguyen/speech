@@ -62,7 +62,7 @@
         excludefile="${sync_exclude_file}"
         verbose="true"
         delete="true" 
-        options="-rKzlvh --stats"
+        options="-rKzlvh --stats --chown=sequential:web"
         dryrun="false"
       />
       
