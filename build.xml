@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project name="SPEECH" default="build" >
+    <echo msg="Starting build script ..." />
+    <property file="prod.properties"/>
+    <property name="jenkins_sources"    value="."/>
+    <property name="sync_exclude_file" value="exclude.build" />
+    <property name="repo.dir" value="${repo_dir}" />
+    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+   <!-- Starts Here ! -->
+    <target name="build">
+        <phingcall target="pull_from_repo" />
+    </target>
+    
+   <!-- Any template to execute -->
+    <target name="config">
+        <copy todir="." overwrite="true">
+            <mapper type="glob" from="*.tpl" to="*" />
+            <filterchain>
+                <expandproperties />
+            </filterchain>
+            <fileset dir="templates/">
+                <include name="**/**" />
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="disallow_search_engine">
+        <copy file="robots.txt" tofile="./site/www/robots.txt" overwrite="true"/>
+    </target>
+
+    <target name="pull_from_repo">
+        <gitpull
+            repository="${repo.dir.resolved}"
+            source="origin" refspec="master"
+            strategy="recursive" keep="true"
+            force="true" quiet="true" rebase="true" />
+        </target>
+</project>

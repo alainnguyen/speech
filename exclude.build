@@ -1,0 +1,13 @@
+.DS_Store
+build.xml
+exclude.build
+dev.properties
+recette.properties
+prod.properties
+production.properties
+.git
+.svn
+.gitignore
+build
+README.md
+sitemap.xml
