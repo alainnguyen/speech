@@ -31,7 +31,7 @@
 
      <target name="npm_install">
         <echo message="npm install on server in ${npm_app_folder} folder"/>
-        <exec command="npm_install" dir="${npm_app_folder}" logoutput="true"/>
+        <exec command="npm install" dir="${npm_app_folder}" logoutput="true"/>
     </target>
 
    
