@@ -23,6 +23,7 @@ keystone.init({
 	'session': true,
 	'auth': true,
 	'user model': 'User',
+	'mongo': process.env.MONGO_URI
 });
 keystone.import('models');
 keystone.set('locals', {
