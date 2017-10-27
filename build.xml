@@ -71,6 +71,11 @@
 
     <target name="restart_passenger" depends="deploy" >
         <echo message="Restart Passenger Node App"/>
-        <exec command="passenger-config restart-app ${jenkins_sources}/site/www" dir="${jenkins_sources}/site/www" />
+        <ssh username="${remote_user}"
+            host="${remote_server}"
+            pubkeyfile="${pub_key}"
+            privkeyfile="${priv_key}"
+            command="touch ${remote_doc_root}/tmp/restart.txt"
+        /> 
     </target>
 </project>
