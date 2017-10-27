@@ -29,7 +29,7 @@
     </target>
 
 
-     <target name="npm_install">
+     <target name="npm_install" depends="config">
         <echo message="npm install on server in ${npm_app_folder} folder"/>
         <exec command="npm install" dir="${npm_app_folder}" logoutput="true"/>
     </target>
